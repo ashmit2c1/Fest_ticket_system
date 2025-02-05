@@ -1,0 +1,10 @@
+POST http://localhost:8080/tickets
+content-type : application/json 
+
+{
+    "name":"Ashmit",
+    "registration_number":"21BSA10101",
+    "day1":"yes",
+    "day2":"no",
+    "day3":"yes"
+}
