@@ -1,0 +1,10 @@
+PUT http://localhost:8080/tickets/18
+content-type : application/json 
+
+{
+    "name":"Ashmit",
+    "registration_number":"21BSA10101",
+    "day1":"yes",
+    "day2":"yes",
+    "day3":"yes"
+}

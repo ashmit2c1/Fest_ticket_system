@@ -63,3 +63,28 @@ func GetTicketsFromDB() ([]Ticket, error) {
 	}
 	return tickets, nil
 }
+
+func GetTicketByID(ticketID int64) (*Ticket, error) {
+	query := `SELECT * FROM tickets WHERE id=?`
+	row := db.DB.QueryRow(query, ticketID)
+	var ticket Ticket
+	err := row.Scan(&ticket.ID, &ticket.Name, &ticket.Registration_number, &ticket.Day1, &ticket.Day2, &ticket.Day3)
+	if err != nil {
+		return nil, err
+	}
+	return &ticket, err
+}
+
+func (ticket Ticket) Update() error {
+	query := `UPDATE tickets SET name=?,registration_number=?,day1=?,day2=?,day3=? WHERE id=?`
+	stmt, err := db.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+	_, err = stmt.Exec(ticket.Name, ticket.Registration_number, ticket.Day1, ticket.Day2, ticket.Day3, ticket.ID)
+	if err != nil {
+		return err
+	}
+	return err
+}
